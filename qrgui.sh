@@ -18,7 +18,9 @@
 #Setup
 
 #The icon that appears in the dialog boxes and the window selector.
-ICON=qricon.png
+#Using the `dirname $0` part looks for the icon in the directory that the
+#script is in, not the directory it is run from.
+ICON=`dirname $0`/qricon.png
 
 #It's much easier to change the program version number when
 #it's closer to the top.
@@ -33,7 +35,7 @@ function checkIfCanceled
     #for exit code 1, if so, the program is closed.
     if  [ $? = 1 ]
       then
-        echo -e "\nExiting $TITLE..."; exit 1;
+        exit 1;
     fi
   }
 
