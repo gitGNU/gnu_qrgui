@@ -12,6 +12,7 @@ VERSION 1.2
 Fixed icon to always show on the window, not just when Qrgui is started from
 the directory it lives in.
 Removed "Exiting Qrgui..." notice.
+
 VERSION 1.1
 ===========
 June 14, 2014
