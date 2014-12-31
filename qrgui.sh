@@ -24,7 +24,7 @@ ICON=`dirname $0`/qricon.png
 
 #It's much easier to change the program version number when
 #it's closer to the top.
-VERSIONNUMBER="1.1"
+VERSIONNUMBER="1.2"
 
 #Enter different text below and the whole program is rebranded.
 TITLE="Qrgui"
@@ -42,15 +42,18 @@ function checkIfCanceled
 #Checks if qrencode is installed.
 qrencode -o /dev/null "Test"
 
-if  [ $? = 127 ]; then
+#If qrencode it isn't installed, ask the user to install the missing package.
+if [[ $? = 127 ]]; then #Exit code 127 is the "command not found" error code.
     echo -e "The QR code generator, qrencode, is not installed.";
     zenity --info \
            --window-icon=$ICON \
            --title="$TITLE" \
            --width=400 \
-           --text="The QR code generator, qrencode, is not installed. It must be installed for Qrgui to work.
+           --text="<span size='large' weight='bold'>The QR code generation engine is not installed.</span>
+$TITLE won't work without it.
+Install the qrencode package with your preferred package manager.
 
-Try installing it with your preferred package manager."
+<span size='large' face='monospace'>sudo apt-get install qrencode</span>"
     exit 1;
 fi
 
@@ -71,16 +74,14 @@ checkIfCanceled
 # Makes an empty variable to compare to QRSTRING to check for empty text entry.
 BLANK=""
 
-#Compares QRSTRING to BLANK to see if text entry field is blank.
-#If the field is blank, make a dialog box showing the error.
-if [ $QRSTRING = $BLANK ]; then
+#Compares QRSTRING to BLANK to see if the text entry field is blank.
+#If the field is blank, then make a dialog box showing the error.
+if [[ $QRSTRING = $BLANK ]]; then
     zenity --error \
            --width=270 \
            --title="$TITLE" \
            --window-icon=$ICON \
-     --text="The text entry field cannot be blank. $TITLE will now close." \
-           --timeout=4
-           echo -e "\nExiting $TITLE..."
+     --text="The text entry field cannot be blank."
            exit 1;
 fi
 
@@ -99,7 +100,7 @@ qrencode -o "$FILENAME" "$QRSTRING"
 #Checks if QR code was generated successfully.
 if  [ $? = 0 ]; then
 
-    echo -e "\nQR code generated successfully"
+    echo -e "\nQR code generated successfully."
     exit 0;
 
   else
