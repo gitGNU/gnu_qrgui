@@ -24,7 +24,7 @@ ICON=`dirname $0`/qricon.png
 
 #It's much easier to change the program version number when
 #it's closer to the top.
-VERSIONNUMBER="1.2"
+VERSIONNUMBER="1.3"
 
 #Enter different text below and the whole program is rebranded.
 TITLE="Qrgui"
