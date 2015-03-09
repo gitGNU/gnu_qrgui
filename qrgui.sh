@@ -15,35 +15,35 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#Setup
+# Setup
 
-#The icon that appears in the dialog boxes and the window selector.
-#Using the `dirname $0` part looks for the icon in the directory that the
-#script is in, not the directory it is run from.
+# The icon that appears in the dialog boxes and the window selector.
+# Using the `dirname $0` part looks for the icon in the directory that the
+# script is in, not the directory it is run from.
 ICON=`dirname $0`/qricon.png
 
-#It's much easier to change the program version number when
-#it's closer to the top.
+# It's much easier to change the program version number when
+# it's closer to the top.
 VERSIONNUMBER="1.3"
 
-#Enter different text below and the whole program is rebranded.
+# Enter different text below and the whole program is rebranded.
 TITLE="Qrgui"
 
 function checkIfCanceled
   {
-    #Checks if the window was closed/canceled by looking
-    #for exit code 1, if so, the program is closed.
+    # Checks if the window was closed/canceled by looking
+    # for exit code 1, if so, the program is closed.
     if  [ $? = 1 ]
       then
         exit 1;
     fi
   }
 
-#Checks if qrencode is installed.
+# Checks if qrencode is installed.
 qrencode -o /dev/null "Test"
 
-#If qrencode it isn't installed, ask the user to install the missing package.
-if [[ $? = 127 ]]; then #Exit code 127 is the "command not found" error code.
+# If qrencode it isn't installed, ask the user to install the missing package.
+if [[ $? = 127 ]]; then # Exit code 127 is the "command not found" error code.
     echo -e "The QR code generator, qrencode, is not installed.";
     zenity --info \
            --window-icon=$ICON \
@@ -57,7 +57,7 @@ Install the qrencode package with your preferred package manager.
     exit 1;
 fi
 
-#Print name and copyright information.
+# Print name and copyright information.
 echo "$TITLE $VERSIONNUMBER"
 echo "Copyright (C) 2014 Joshua Wells"
 echo "This is free software; see README for copying conditions.  There is NO
@@ -74,8 +74,8 @@ checkIfCanceled
 # Makes an empty variable to compare to QRSTRING to check for empty text entry.
 BLANK=""
 
-#Compares QRSTRING to BLANK to see if the text entry field is blank.
-#If the field is blank, then make a dialog box showing the error.
+# Compares QRSTRING to BLANK to see if the text entry field is blank.
+# If the field is blank, then make a dialog box showing the error.
 if [[ $QRSTRING = $BLANK ]]; then
     zenity --error \
            --width=270 \
@@ -85,7 +85,7 @@ if [[ $QRSTRING = $BLANK ]]; then
            exit 1;
 fi
 
-#Sets the variable FILENAME to the name and path to save the QR code.
+# Sets the variable FILENAME to the name and path to save the QR code.
 FILENAME=$(zenity --file-selection \
               --window-icon=$ICON \
               --title="Save QR Code - $TITLE" \
@@ -94,10 +94,12 @@ FILENAME=$(zenity --file-selection \
 
 checkIfCanceled
 
-#Generates the QR code.
+
+
+# Generates the QR code.
 qrencode -o "$FILENAME" "$QRSTRING"
 
-#Checks if QR code was generated successfully.
+# Checks if QR code was generated successfully.
 if  [ $? = 0 ]; then
 
     echo -e "\nQR code generated successfully."
