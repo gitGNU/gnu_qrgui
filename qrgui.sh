@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2014 Joshua Wells
+# Copyright (C) 2014, 2015 Joshua Wells
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ ICON=`dirname $0`/qricon.png
 
 # It's much easier to change the program version number when
 # it's closer to the top.
-VERSIONNUMBER="1.3"
+VERSIONNUMBER="1.4"
 
 # Enter different text below and the whole program is rebranded.
 TITLE="Qrgui"
@@ -94,6 +94,12 @@ FILENAME=$(zenity --file-selection \
 
 checkIfCanceled
 
+# Check if the .png file extension was added by the user, append it if it isn't.
+echo "$FILENAME" | grep ".png"
+
+if [[ $? = 1 ]]; then        # If the the .png string wasn't found, grep will
+    FILENAME="$FILENAME.png" # exit with error code 1.
+fi
 
 
 # Generates the QR code.

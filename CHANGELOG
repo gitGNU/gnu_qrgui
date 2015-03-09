@@ -2,12 +2,20 @@
 CHANGELOG
 =========
 
-Copyright (C) 2014 Joshua Wells
+Copyright (C) 2014, 2015 Joshua Wells
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
 notice and this notice are preserved.  This file is offered as-is,
 without any warranty.
+
+VERSION 1.4
+===========
+March 8, 2015
+
+The program now adds a .png file extension to the saved image if it
+is not added by the user in the save dialog.
+Made comment style more consistent by adding spaces after each hash (#).
 
 VERSION 1.3
 ===========
